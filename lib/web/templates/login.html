@@ -1,0 +1,25 @@
+{{ add_css('login.css') | safe }}
+
+
+<div class="form-container">
+  <div>
+    <h3>Login</h3>
+  </div>
+  <form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-input">
+      {{ form.username(placeholder="Username") }}
+    </div>
+    <div class="form-input">
+      {{ form.password(placeholder="Password") }}
+    </div>
+    <div class="error">
+      {% if error %}
+        {{ error }}
+      {% endif %}
+    </div>
+    <div class="form-input">
+      <input type="submit" value="submit" />
+    </div>
+  </form>
+</div>

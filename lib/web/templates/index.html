@@ -1,0 +1,11 @@
+{{ add_css('index.css') | safe }}
+<div class="list">
+  {% for log in logs %}
+    <a href="/log/{{ log.id }}" class="item">{{ log.name }}</a>
+  {% endfor %}
+  {% if not logs %}
+    <h3>
+      You don't have any logs. You can add them via cli command
+    </h3>
+  {% endif %}
+</div>

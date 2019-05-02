@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-daemon = "*"
+dataset = "*"
+flask = "*"
+pylint = "*"
+click = "*"
+clrc = "*"
+sh = "*"
+passlib = "*"
+flask-login = "*"
+flask-wtf = "*"
+loguru = "*"
+psutil = "*"
+python-dotenv = "*"
+filelock = "*"
+lockfile = "*"
+pidlockfile = "*"
+
+[dev-packages]
+nuitka = "*"
+
+[requires]
+python_version = "3.7"

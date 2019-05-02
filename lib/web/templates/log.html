@@ -1,0 +1,8 @@
+{{ add_css('log.css') | safe }}
+
+<script>
+  window.logId = {{ log.id | safe }};
+</script>
+
+<div class="log"></div>
+{{ add_js('log.js') | safe }}
