@@ -1,3 +1,5 @@
 .vscode
 build
 cli.bin
+cli.spec
+dist
