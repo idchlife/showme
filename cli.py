@@ -2,9 +2,9 @@ import traceback
 from pathlib import Path
 import clrc
 import click
-from lib.config import LOG_PATH
-from lib.flask_daemon import start_flask_server, stop_flask_server
-from lib.web.tools import (create_user,
+from app.config import LOG_PATH
+from app.flask_daemon import start_flask_server, stop_flask_server
+from app.web.tools import (create_user,
                            User,
                            find_user,
                            get_all_users,
