@@ -17,7 +17,9 @@ if config_exists:
   load_dotenv(CONFIG_PATH)
 
 if not config_exists:
-  clrc.info("Config file does not exist. If you want to customize behaviour, create it at {0} and modify according to documentation".format(CONFIG_PATH))
+  clrc.info(
+    "Config file does not exist. Please enter `init` command to initialize config at path: {0}".format(CONFIG_PATH)
+  )
 
 def get_env(name: str, default: str, cast_to=None):
   try:
@@ -39,6 +41,11 @@ try:
   PORT = get_env("PORT", "4020")
   HOST = get_env("HOST", "0.0.0.0")
   DEBUG = get_env("DEBUG", "0", int) == 1
+  _SECRET_KEY_DEFAULT = "NOT_SO_SECRET_RIGHT? RIGHT? GUYS?..."
+  SECRET_KEY = get_env("SECRET_KEY", _SECRET_KEY_DEFAULT)
+  if SECRET_KEY == _SECRET_KEY_DEFAULT:
+    clrc.warn("You have default SECRET_KEY value. Please edit this in the config file at {0} to flavour your protection of csrf token".format(CONFIG_PATH))
+
   DATABASE_PATH = get_env("DATABASE_PATH", os.path.join(HOME_DIR, ".showme.db"))
   LOG_PATH = get_env("LOG_PATH", os.path.join(HOME_DIR, ".showme.log"))
 except:

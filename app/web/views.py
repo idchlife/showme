@@ -1,6 +1,6 @@
 from flask import render_template, redirect
-from werkzeug.exceptions import NotFound
-from flask_login import login_user, login_required
+from werkzeug.exceptions import NotFound, Forbidden
+from flask_login import login_user, login_required, current_user
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField
 from wtforms.validators import DataRequired
@@ -12,12 +12,22 @@ from .tools import validate_user, User, find_log_file_by_id, get_all_log_files
 @login_required
 def index():
   logs = get_all_log_files()
+
+  logs = [l for l in logs if not l.username or l.username == current_user.username]
+
   return render_template("index.html", logs=logs)
 
 
 @app.route("/log/<id>")
+@login_required
 def log(id: int):
   log = find_log_file_by_id(id)
+
+  user: User = current_user
+
+  if log.username:
+    if log.username != user.username:
+      raise Forbidden()
 
   if not log:
     raise NotFound()

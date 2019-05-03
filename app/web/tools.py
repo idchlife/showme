@@ -65,6 +65,7 @@ class Log:
     self.id = data['id']
     self.filepath = data['filepath']
     self.name = data['name']
+    self.username = data['username'] if 'username' in data else None
 
 
 def find_log_file(name: str):
@@ -78,13 +79,18 @@ def find_log_file_by_id(id: int) -> Log:
 
   return Log(log) if log else None
 
-def add_log_file(name: str, filepath: str):
+def add_log_file(name: str, filepath: str, user: User = None):
   existing = find_log_file(name)
 
   if existing:
     raise Exception("Log with this name already exists!")
 
-  logs.insert(dict(name=name, filepath=filepath))
+  if user:
+    # Available only to provided user
+    logs.insert(dict(username=user.username, name=name, filepath=filepath))
+  else:
+    # Available for general audience
+    logs.insert(dict(name=name, filepath=filepath))
 
 
 def delete_log_file(name: str):

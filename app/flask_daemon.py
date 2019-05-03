@@ -33,6 +33,11 @@ def start_flask_server(daemonize=True, debug=True):
     if pid in psutil.pids():
       clrc.info("It seems daemon is already running. Use restart command to restart it")
       return
+    else:
+      clrc.warn("It seems daemon was not stopped correctly the last time. PID file exists, and PID inside it do not match any running process. Please remove PID file manually: {0}".format(PID_PATH))
+      clrc.info("After removing PID file daemon should start as usual")
+      return
+      
 
   if daemonize:
     if debug:
