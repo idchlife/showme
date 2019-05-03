@@ -8,5 +8,7 @@ DATABASE_URI = "sqlite:///" + DATABASE_PATH
 
 db = dataset.connect(DATABASE_URI, engine_kwargs={
   # NOTE: Since db accessed via cli and daemon thread, we don't check for the same thread
-  'check_same_thread': False
+  'connect_args': {
+    'check_same_thread': False
+  }
 })
