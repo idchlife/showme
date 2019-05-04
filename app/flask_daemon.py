@@ -1,4 +1,5 @@
 import os
+import sys
 import daemon
 import signal
 import logging
@@ -55,13 +56,18 @@ def start_flask_server(daemonize=True, debug=True):
       fh = logging.FileHandler(LOG_PATH)
       logger.addHandler(fh)
 
+      # Fix to work with pyinstaller onefile
+      fds_to_myself = []
+      if getattr(sys, 'frozen', False):
+        fds_to_myself = [of.fd for of in psutil.Process(os.getpid()).open_files() if of.path == sys.executable]
+
       with daemon.DaemonContext(
         pidfile=pidlockfile.PIDLockFile(PID_PATH),
         stdout=fh.stream,
         stderr=fh.stream,
         files_preserve=[
           fh.stream
-        ]
+        ] + fds_to_myself
       ):
         _run_flask_app()
 

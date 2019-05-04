@@ -7,9 +7,22 @@
 }
 
 .item, .item:active, .item:visited {
-  min-height: 60px;
+  display: inline-block;
+  height: 100px;
   width: 100%;
   text-align: center;
+  font-size: 1.6rem;
+  text-align: center;
+  background-color: gainsboro;
+  position: relative;
+}
+
+.item button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
   font-size: 1.6rem;
 }
 
